@@ -3,7 +3,6 @@ package org.lcem.web.client;
 import java.util.Iterator;
 import java.util.List;
 
-import org.lcem.web.shared.FieldVerifier;
 import org.lcem.web.shared.model.Emission;
 
 import com.google.gwt.core.client.GWT;

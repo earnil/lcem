@@ -13,7 +13,7 @@ import org.apache.log4j.Logger;
 
 public class EmissionDao {
 
-	Logger log = LogManager.getLogger(EmissionDao.class);
+	private static final Logger log = LogManager.getLogger(EmissionDao.class);
 	
 	public Node<String> getEmissionsTree() {
 

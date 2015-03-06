@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="org.lcem.web.shared.model">
+	<class name="Emission" table="emissions">
+		<id name="id" column="emission_id">
+			<generator class="native" />
+		</id>
+		<property name="name" />
+		<property name="date" type="timestamp" column="emissions_date" />
+		<property name="link" />
+		<set name="films" table="film_emission">
+			<key column="emission_id" />
+			<many-to-many column="film_id" class="Film" />
+		</set>
+		<set name="tracks" table="track_emission">
+			<key column="emission_id" />
+			<many-to-many column="track_id" class="Track" />
+		</set>
+	</class>
+</hibernate-mapping>

@@ -18,7 +18,7 @@ import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 @SuppressWarnings("serial")
 public class EmissionServiceImpl extends RemoteServiceServlet implements EmissionService {
 
-	Logger log = LogManager.getLogger(EmissionDao.class);
+	private static final Logger log = LogManager.getLogger(EmissionDao.class);
 	
 	private EmissionDao emissionDao = new EmissionDao();
 	
@@ -57,29 +57,7 @@ public class EmissionServiceImpl extends RemoteServiceServlet implements Emissio
 
 	private boolean searchEmission(Emission emission, String search) {
 
-		if (emission.getName().contains(search))
-			return true;
-		
-		if (emission.getLink().contains(search))
-			return true;
-		
-		Iterator<Film> iteratorFilm = emission.getFilms().iterator();
-		while (iteratorFilm.hasNext()) {
-			if (iteratorFilm.next().getName().contains(search))
-				return true;
-			if (iteratorFilm.next().getDirector().contains(search))
-				return true;				
-		}
-		
-		Iterator<Track> iteratorTrack = emission.getTracks().iterator();
-		while (iteratorTrack.hasNext()) {
-			if (iteratorTrack.next().getName().contains(search))
-				return true;
-			if (iteratorTrack.next().getPerformer().contains(search))
-				return true;	
-			if (iteratorTrack.next().getSongWriter().contains(search))
-				return true;							
-		}
+
 		
 		return false;
 	}

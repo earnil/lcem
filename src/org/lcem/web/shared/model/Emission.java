@@ -1,50 +1,61 @@
 package org.lcem.web.shared.model;
 
 import java.io.Serializable;
-import java.sql.Date;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 public class Emission implements Serializable {
 
 	private static final long serialVersionUID = -3468529378799359329L;
 	
+	private Long id;
 	private String name;
 	private Date date;
 	private String link;
-	private List<Track> tracks;
-	private List<Film> films;
+	private Set<Track> tracks;
+	private Set<Film> films;
 
 	public Emission() {
-		this.name = null;
-		this.date = null;
-		this.link = null;
-		this.tracks = new ArrayList<Track>();
-		this.films = new ArrayList<Film>();
+		this.tracks = new HashSet<Track>();
+		this.films = new HashSet<Film>();
 	}
 
 	public Emission(String name, Date date) {
 		this.name = name;
 		this.date = date;
-		this.link = null;
-		this.tracks = new ArrayList<Track>();
-		this.films = new ArrayList<Film>();
+		this.tracks = new HashSet<Track>();
+		this.films = new HashSet<Film>();
 	}
 
 	public Emission(String name, Date date, String link) {
 		this.name = name;
 		this.date = date;
 		this.link = link;
-		this.tracks = new ArrayList<Track>();
-		this.films = new ArrayList<Film>();
+		this.tracks = new HashSet<Track>();
+		this.films = new HashSet<Film>();
 	}
 	
-	public Emission(String name, Date date, String link, List<Track> tracks, List<Film> films) {
+	public Emission(String name, Date date, String link, Set<Track> tracks, Set<Film> films) {
 		this.name = name;
 		this.date = date;
 		this.link = link;
 		this.tracks = tracks;
 		this.films = films;
+	}
+
+	/**
+	 * @return the id
+	 */
+	public Long getId() {
+		return id;
+	}
+
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	/**
@@ -92,29 +103,49 @@ public class Emission implements Serializable {
 	/**
 	 * @return the tracks
 	 */
-	public List<Track> getTracks() {
+	protected Set<Track> getTracks() {
 		return tracks;
 	}
 	
 	/**
 	 * @param tracks the tracks to set
 	 */
-	public void setTracks(List<Track> tracks) {
+	protected void setTracks(Set<Track> tracks) {
 		this.tracks = tracks;
 	}
+	
+    public void addToFilm(Track track) {
+        this.getTracks().add(track);
+        track.getEmissions().add(this);
+    }
+
+	public void removeFromEvent(Track track) {
+        this.getTracks().remove(track);
+        track.getEmissions().remove(this);
+    }	
 	
 	/**
 	 * @return the films
 	 */
-	public List<Film> getFilms() {
+	protected Set<Film> getFilms() {
 		return films;
 	}
 	
 	/**
 	 * @param films the films to set
 	 */
-	public void setFilms(List<Film> films) {
+	protected void setFilms(Set<Film> films) {
 		this.films = films;
 	}
+	
+    public void addToFilm(Film film) {
+        this.getFilms().add(film);
+        film.getEmissions().add(this);
+    }
+
+    public void removeFromEvent(Film film) {
+        this.getFilms().remove(film);
+        film.getEmissions().remove(this);
+    }
 	
 }
