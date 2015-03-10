@@ -11,7 +11,7 @@ public class Utils {
 
 	    TreeItem root = new TreeItem();
 	    root.setText(node.getData());
-	    Iterator<Node<String>> iterator = node.getChildren().iterator();
+	    Iterator<Node<String>> iterator = node.getChildrens().iterator();
 	    while (iterator.hasNext()) {
 	    	populateTreeRec(iterator.next(), root);
 	    }
@@ -21,7 +21,7 @@ public class Utils {
 	
 	private static void populateTreeRec(Node<String> node, TreeItem treeItem) {
 
-	    Iterator<Node<String>> iterator = node.getChildren().iterator();
+	    Iterator<Node<String>> iterator = node.getChildrens().iterator();
     	TreeItem item = new TreeItem();
     	item.setHTML(node.getData());
     	treeItem.addItem(item);

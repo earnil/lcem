@@ -11,24 +11,24 @@ public class Node<T> implements Serializable {
 	
 	private T data;
     private Node<T> parent;
-    private List<Node<T>> children;  
+    private List<Node<T>> childrens;  
     
 	public Node() {
 		this.data = null;
 		this.parent = null;
-		this.children = new ArrayList<Node<T>>();
+		this.childrens = new ArrayList<Node<T>>();
 	}
     	
 	public Node(T data) {
 		this.data = data;
 		this.parent = null;
-		this.children = new ArrayList<Node<T>>();
+		this.childrens = new ArrayList<Node<T>>();
 	}
 	
 	public Node(T data, List<Node<T>> children) {
 		this.data = data;
 		this.parent = null;
-		this.children = children;
+		this.childrens = children;
 		Iterator<Node<T>> iterator = children.iterator();
 		while (iterator.hasNext()) {
 			iterator.next().parent = this;
@@ -66,15 +66,28 @@ public class Node<T> implements Serializable {
 	/**
 	 * @return the children
 	 */
-	public List<Node<T>> getChildren() {
-		return children;
+	public List<Node<T>> getChildrens() {
+		return childrens;
+	}
+	
+	/**
+	 * @return the children
+	 */
+	public Node<T> getChildrenByData(T data) {
+		Iterator<Node<T>> iterator = childrens.iterator();
+		while (iterator.hasNext()) {
+			Node<T> node = iterator.next();
+			if (node.getData().equals(data))
+				return node;
+		}
+		return null;
 	}
 	
 	/**
 	 * @param children the children to set
 	 */
-	public void setChildren(List<Node<T>> children) {
-		this.children = children;
+	public void setChildrens(List<Node<T>> childrens) {
+		this.childrens = childrens;
 	}
 
 	/* (non-Javadoc)
@@ -98,7 +111,7 @@ public class Node<T> implements Serializable {
 	@Override
 	public String toString() {
 		return "Node [data=" + data + ", parent=" + (parent==null?"":parent.getData()) + ", children="
-				+ children + "]";
+				+ childrens + "]";
 	} 	
 
 }

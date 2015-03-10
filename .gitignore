@@ -41,3 +41,15 @@ $RECYCLE.BIN/
 Network Trash Folder
 Temporary Items
 .apdisk
+
+test-classes
+test
+gwt-unitCache
+.settings
+.classpath
+.project
+war/WEB-INF/appengine-generated
+war/WEB-INF/classes
+war/WEB-INF/deploy
+war/WEB-INF/lib
+war/lcem

@@ -1,26 +1,19 @@
 package org.lcem.web.utils;
 
-import org.apache.log4j.LogManager;
-import org.apache.log4j.Logger;
 import org.hibernate.SessionFactory;
-import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
-import org.hibernate.service.ServiceRegistry;
-import org.hibernate.service.ServiceRegistryBuilder;
 
 public class HibernateUtil {
 
     private static final SessionFactory sessionFactory = buildSessionFactory();
-    
-    private static final Logger log = LogManager.getLogger(HibernateUtil.class);
 
     private static SessionFactory buildSessionFactory() {
         try {
             // Create the SessionFactory from hibernate.cfg.xml
         	Configuration cfg = new Configuration().configure();
         	StandardServiceRegistryBuilder ssrb = new StandardServiceRegistryBuilder();        	
-        	ssrb.applySettings(cfg.getProperties());        	
+        	ssrb.applySettings(cfg.getProperties());     
             return cfg.buildSessionFactory(ssrb.build());
         }
         catch (Exception ex) {

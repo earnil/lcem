@@ -9,8 +9,6 @@ import org.apache.log4j.Logger;
 import org.lcem.web.client.EmissionService;
 import org.lcem.web.server.dao.EmissionDao;
 import org.lcem.web.shared.model.Emission;
-import org.lcem.web.shared.model.Film;
-import org.lcem.web.shared.model.Track;
 import org.lcem.web.utils.Node;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;

@@ -15,18 +15,17 @@ public class EmissionManager {
         EmissionManager mgr = new EmissionManager();
 
         if (args[0].equals("store")) {
-            mgr.createAndStoreEmission("My Emission", new Date());
+        	for (int i = 0; i<10; i++)
+        		mgr.createAndStoreEmission("My Emission " + i, new Date(), "the link " + i);
         }
         else if (args[0].equals("list")) {
             List<Emission> emissions = mgr.listEvents();
             for (int i = 0; i < emissions.size(); i++) {
             	Emission theEmission = emissions.get(i);
-                System.out.println(
-                        "Emission: " + theEmission.getName() + " Time: " + theEmission.getDate()
-                );
+                System.out.println("Emission: " + theEmission.getName() + " Time: " + theEmission.getDate());
             }
         } else if (args[0].equals("addfimtoemission")) {
-            Long emissionId = mgr.createAndStoreEmission("azeaze", new Date());
+            Long emissionId = mgr.createAndStoreEmission("azeaze", new Date(), "the link " + new Date());
             Long filmId = mgr.createAndStoreFilm("qsdqsd");
             mgr.addFilmToEmission(filmId, emissionId);
             System.out.println("Added film " + filmId + " to emission " + emissionId);
@@ -35,13 +34,14 @@ public class EmissionManager {
         HibernateUtil.getSessionFactory().close();
     }
 
-    private Long createAndStoreEmission(String title, Date theDate) {
+    private Long createAndStoreEmission(String title, Date theDate, String link) {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         session.beginTransaction();
 
         Emission theEmission = new Emission();
         theEmission.setName(title);
         theEmission.setDate(theDate);
+        theEmission.setLink(link);
         session.save(theEmission);
 
         session.getTransaction().commit();
@@ -65,7 +65,8 @@ public class EmissionManager {
     private List<Emission> listEvents() {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         session.beginTransaction();
-        List<Emission> result = session.createQuery("from Emission").list();
+        @SuppressWarnings("unchecked")
+		List<Emission> result = session.createQuery("from Emission").list();
         session.getTransaction().commit();
         return result;
     }
