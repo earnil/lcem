@@ -13,13 +13,13 @@ import org.hibernate.Session;
 import org.lcem.web.shared.model.Emission;
 import org.lcem.web.utils.HibernateUtil;
 import org.lcem.web.utils.Node;
-import org.apache.log4j.LogManager;
-import org.apache.log4j.Logger;
+//import org.apache.log4j.LogManager;
+//import org.apache.log4j.Logger;
 
 
 public class EmissionDao {
 
-	private static final Logger log = LogManager.getLogger(EmissionDao.class);
+//	private static final Logger log = LogManager.getLogger(EmissionDao.class);
 	
 	public Node<String> getEmissionsTree() {
 
@@ -99,11 +99,32 @@ public class EmissionDao {
 //		
 //		Node<String> tree = new Node<String>("root", children);
 		
-		log.info(tree);
+//		log.info(tree);
 		
 		return tree;
 		
 	}
+	
+	
+	
+	
+	
+	public List<Emission> getAllEmissions() {
+
+		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        session.beginTransaction();
+        @SuppressWarnings("unchecked")
+		List<Emission> result = session.createQuery("from Emission").list();
+        session.getTransaction().commit();
+        
+		return result;
+		
+	}
+	
+	
+	
+	
+	
 	
 	public List<Emission> getEmissions() {
 		ArrayList<Emission> emissions = new ArrayList<Emission>();
@@ -118,9 +139,9 @@ public class EmissionDao {
 			emissions.add(qsd);
 			emissions.add(wxc);
 		} catch (ParseException e) {
-			log.error(e.getMessage(), e);
+//			log.error(e.getMessage(), e);
 		}	
-		log.info(emissions);
+//		log.info(emissions);
 		
 		return emissions;
 	}

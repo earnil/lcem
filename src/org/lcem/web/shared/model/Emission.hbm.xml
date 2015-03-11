@@ -8,11 +8,11 @@
 		<property name="name" />
 		<property name="date" type="timestamp" column="emissions_date" />
 		<property name="link" />
-		<set name="films" table="film_emission">
+		<set name="films" table="film_emission" lazy="false">
 			<key column="emission_id" />
 			<many-to-many column="film_id" class="Film" />
 		</set>
-		<set name="tracks" table="track_emission">
+		<set name="tracks" table="track_emission" lazy="false">
 			<key column="emission_id" />
 			<many-to-many column="track_id" class="Track" />
 		</set>

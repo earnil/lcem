@@ -42,6 +42,8 @@ public class Emission implements Serializable {
 		this.link = link;
 		this.tracks = tracks;
 		this.films = films;
+		this.tracks = new HashSet<Track>();
+		this.films = new HashSet<Film>();
 	}
 
 	/**

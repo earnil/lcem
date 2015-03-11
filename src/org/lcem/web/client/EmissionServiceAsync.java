@@ -10,4 +10,5 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 public interface EmissionServiceAsync {
 	void getEmissionTreeServer(String input, AsyncCallback<Node<String>> callback) throws IllegalArgumentException;
 	void searchEmissionServer(String search, AsyncCallback<List<Emission>> callback) throws IllegalArgumentException;
+	void getEmissionListServer(String name, AsyncCallback<List<Emission>> callback) throws IllegalArgumentException;
 }

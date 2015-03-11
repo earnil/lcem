@@ -11,5 +11,6 @@ import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 @RemoteServiceRelativePath("emission")
 public interface EmissionService extends RemoteService {
 	Node<String> getEmissionTreeServer(String name) throws IllegalArgumentException;
+	List<Emission> getEmissionListServer(String name) throws IllegalArgumentException;
 	List<Emission> searchEmissionServer(String search) throws IllegalArgumentException;
 }

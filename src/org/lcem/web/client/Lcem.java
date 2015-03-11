@@ -1,7 +1,11 @@
 package org.lcem.web.client;
 
-import org.lcem.web.utils.Node;
-import org.lcem.web.utils.Utils;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+
+import org.lcem.web.shared.model.Emission;
 
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
@@ -13,6 +17,7 @@ import com.google.gwt.media.client.Audio;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.DialogBox;
+import com.google.gwt.user.client.ui.DisclosurePanel;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.RootPanel;
@@ -96,11 +101,33 @@ public class Lcem implements EntryPoint {
 			}
 		});
 		
-		emissionService.getEmissionTreeServer(null, new AsyncCallback<Node<String>>() {
+		emissionService.getEmissionListServer(null, new AsyncCallback<List<Emission>>() {
 			public void onFailure(Throwable caught) {}
 
-			public void onSuccess(Node<String> result) {
-			    Utils.populateTree(result, emissionTree);
+			@Override
+			public void onSuccess(List<Emission> result) {
+
+			    TreeItem root = new TreeItem();
+			    root.setText("root");
+			    emissionTree.addItem(root);
+			    
+			    Map<Integer, TreeItem> years = new HashMap<Integer, TreeItem>(); 
+			    
+			    Iterator<Emission> iterator = result.iterator();
+			    while (iterator.hasNext()) {
+			    	Emission e = iterator.next();
+		        	
+		        	if (!years.containsKey(e.getDate().getYear())) {
+		        		TreeItem item = new TreeItem();
+		        		item.setHTML(Integer.toString(e.getDate().getYear()));
+		        		years.put(e.getDate().getYear(), item);
+		        		root.addItem(item);
+		        	}
+		        	
+		        	years.get(e.getDate().getYear()).addItem(new DisclosurePanel(e.getName()));
+			    	
+			    }
+			    
 			    RootPanel.get().add(emissionTree);
 			    emissionTree.addSelectionHandler(new SelectionHandler<TreeItem>() {					
 					@Override
@@ -122,7 +149,7 @@ public class Lcem implements EntryPoint {
 							lecteur.play();
 						}
 					}
-				});
+				});				
 			}
 		});
 

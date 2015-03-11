@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import org.apache.log4j.LogManager;
-import org.apache.log4j.Logger;
+//import org.apache.log4j.LogManager;
+//import org.apache.log4j.Logger;
 import org.lcem.web.client.EmissionService;
 import org.lcem.web.server.dao.EmissionDao;
 import org.lcem.web.shared.model.Emission;
@@ -16,19 +16,19 @@ import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 @SuppressWarnings("serial")
 public class EmissionServiceImpl extends RemoteServiceServlet implements EmissionService {
 
-	private static final Logger log = LogManager.getLogger(EmissionDao.class);
+//	private static final Logger log = LogManager.getLogger(EmissionDao.class);
 	
 	private EmissionDao emissionDao = new EmissionDao();
 	
 	@Override
 	public Node<String> getEmissionTreeServer(String name) throws IllegalArgumentException {		
-		log.info("getEmissionTreeServer");
+//		log.info("getEmissionTreeServer");
 		return emissionDao.getEmissionsTree();
 	}
 
 	@Override
 	public List<Emission> searchEmissionServer(String search) throws IllegalArgumentException {
-		log.info("searchEmissionServer");
+//		log.info("searchEmissionServer");
 		List<Emission> searchResults = new ArrayList<Emission>();
 		
 		Iterator<Emission> iterator = emissionDao.getEmissions().iterator();
@@ -42,7 +42,7 @@ public class EmissionServiceImpl extends RemoteServiceServlet implements Emissio
 		if (searchResults.isEmpty())
 			searchResults.add(new Emission(didYouMean(search), null));
 		
-		log.info(searchResults);
+//		log.info(searchResults);
 		return searchResults;
 	}
 
@@ -58,6 +58,13 @@ public class EmissionServiceImpl extends RemoteServiceServlet implements Emissio
 
 		
 		return false;
+	}
+
+	@Override
+	public List<Emission> getEmissionListServer(String name)
+			throws IllegalArgumentException {
+//		log.info("getEmissionListServer");
+		return emissionDao.getAllEmissions();
 	}
 
 }
